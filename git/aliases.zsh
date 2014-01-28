@@ -1,3 +1,5 @@
+!!! This file is not being load since change in zshrc.symlink
+
 # Use `hub` as our git wrapper:
 #   http://defunkt.github.com/hub/
 hub_path=$(which hub)
