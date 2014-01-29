@@ -4,7 +4,7 @@ export PROJECTS=~/projects
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
 if [[ -a ~/.localrc ]]
-then 
+then
   source ~/.localrc
 fi
 
@@ -47,7 +47,7 @@ ZSH_THEME="robbyrussell"
 # much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-# Uncomment following line if you want to  shown in the command execution time stamp 
+# Uncomment following line if you want to  shown in the command execution time stamp
 # in the history command output. The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|
 # yyyy-mm-dd
 # HIST_STAMPS="mm/dd/yyyy"
@@ -98,8 +98,8 @@ alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
 
 
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
+#export GOPATH=$HOME/go
+#export PATH=$PATH:$GOPATH/bin
 
 #Bower
 #On prezto or oh-my-zsh, do not forget to alias bower='noglob bower' or bower install jquery\#1.9.1
@@ -112,3 +112,7 @@ function k(){
 
 #[[ $TERM != "screen" ]] && exec tmux
 
+#for lib (~/.zsh/*.zsh) source $lib
+for lib (~/.dotfiles/zsh.d/*.zsh) source $lib
+
+unset lib
