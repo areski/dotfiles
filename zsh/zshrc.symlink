@@ -80,23 +80,13 @@ export PATH="/home/areski/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/loca
 export WORKON_HOME=$HOME/.virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
 
-alias gci='git commit -am'
-alias gb='git branch'
-alias gba='git branch -a'
-alias gc='git commit -v'
-alias gd='git diff'
-alias gl='git pull'
-alias gp='git push'
-alias gst='git status'
-alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --"
-alias gitpu="git fetch origin -v; git fetch upstream -v; git merge upstream/master"
-
 alias rmpyc='find . -name "*.pyc" | xargs -I {} rm -v "{}"'
 alias rmbak='find . -name "*.bak" | xargs -I {} rm -v "{}"'
 
 alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
 
+alias mkgo='mkdir bin; mkdir src; mkdir pkg; touch .gopath'
 
 #export GOPATH=$HOME/go
 #export PATH=$PATH:$GOPATH/bin
@@ -111,8 +101,44 @@ function k(){
 }
 
 #[[ $TERM != "screen" ]] && exec tmux
+#[[ $TERM != "screen" ]] && exec byobu
 
 #for lib (~/.zsh/*.zsh) source $lib
-for lib (~/.dotfiles/zsh.d/*.zsh) source $lib
+#for lib (~/.dotfiles/zsh.d/*.zsh) source $lib
 
-unset lib
+#unset lib
+
+
+#FROM https://github.com/holman/dotfiles/blob/master/zsh/zshrc.symlink
+#echo "FROM https://github.com/holman/dotfiles/blob/master/zsh/zshrc.symlink"
+
+# shortcut to this dotfiles path is $ZSH
+export DOTFILES=$HOME/.dotfiles
+
+# all of our zsh files
+typeset -U config_files
+config_files=($DOTFILES/**/*.zsh)
+
+# load the path files
+for file in ${(M)config_files:#*/path.zsh}
+do
+  source $file
+done
+
+# load everything but the path and completion files
+for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
+do
+  source $file
+done
+
+# initialize autocomplete here, otherwise functions won't be loaded
+autoload -U compinit
+compinit
+
+# load every completion after autocomplete loads
+for file in ${(M)config_files:#*/completion.zsh}
+do
+  source $file
+done
+
+unset config_files
