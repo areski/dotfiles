@@ -26,9 +26,9 @@ function update_gopath() {
 
     directories+=("/")
 
-    for c in $directories; do
-        if [ -f "$c/.gopath" ] && [ -d "$c/src" ]; then
-            local new_gopath=$(/bin/readlink -f "$c")
+    for curdir in $directories; do
+        if [ -f "$curdir/.gopath" ] && [ -d "$curdir/src" ]; then
+            local new_gopath=$(/bin/readlink -f "$curdir")
             if [[ "$GOPATH" != "$new_gopath" ]]; then
                 export GOPATH="$new_gopath"
                 echo "GOPATH=$GOPATH"
@@ -37,7 +37,7 @@ function update_gopath() {
             return
         fi
 
-        c="${c}/.."
+        curdir="${curdir}/.."
     done
 
     if [ ! -z $GOPATH ]; then
