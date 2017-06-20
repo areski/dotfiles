@@ -14,6 +14,8 @@ alias mkgo='mkdir bin; mkdir src; mkdir pkg; touch .gopath'
 
 alias pmix="cd /home/areski/projects/elixir/playground/ && mix deps.get && iex -S mix && cd -"
 
+alias erlang_version="erl -eval '{ok, Version} = file:read_file(filename:join([code:root_dir(), \"releases\", erlang:system_info(otp_release), \"OTP_VERSION\"])), io:fwrite(Version), halt().' -noshell"
+
 # Removed cause we use update_gopath to detect when we are in a directory with .gopath file
 #export GOPATH=$HOME/go
 #export PATH=$PATH:$GOPATH/bin
